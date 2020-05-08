@@ -36,7 +36,7 @@ EXPRESSAO: NUM {$$ = $1;}
 										$$ = $$ * $1;
 										i++;
 										 };
-										printf("MOV C, 1\nMOV A, %d\nMOV B, %d\nMOV D, %d\nPOTENCIA:\n	MUL B\n	INC C\n	CMP C,D\n	JNZ POTENCIA\n", $1,$1, $3); } 
+										printf("MOV C, 1\nMOV A, %d\nMOV B, %d\nMOV D, %d\nPOTENCIA:\n	MUL B\n	INC C\n	CMP C,D\n	JNZ POTENCIA\n", $1, $3); } 
 		 |EPAREN EXPRESSAO DPAREN {$$ = $2; };
 
 
