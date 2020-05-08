@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 void yyerror (char *);
 int yylex(void);
@@ -32,7 +31,12 @@ EXPRESSAO: NUM {$$ = $1;}
   		 |EXPRESSAO MENOS EXPRESSAO {$$ = $1 - $3; printf("%d -%d\n", $1, $3);}
 		 |EXPRESSAO VEZES EXPRESSAO {$$ = $1 * $3; printf("%d*%d\n", $1, $3); }
 		 |EXPRESSAO DIVISAO EXPRESSAO {$$ = $1 / $3; printf("%d/%d\n", $1, $3); }
-		 |EXPRESSAO POTENCIA EXPRESSAO {$$ = pow($1,$3); printf("%d ^ %d\n", $1, $3); }
+		 |EXPRESSAO POTENCIA EXPRESSAO {int i = 1; 
+										while (i<$3){
+										$$ = $$ * $1;
+										i++;
+										 };
+										printf("%d ^ %d\n", $1, $3); } 
 		 |EPAREN EXPRESSAO DPAREN {$$ = $2; };
 
 
