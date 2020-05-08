@@ -1,8 +1,10 @@
 %{
 
 #include <stdio.h>
-#inslude <stdlib.h>
-void yyerror (char *c);
+#include <stdlib.h>
+#include <math.h>
+
+void yyerror (char *);
 int yylex(void);
 %}
 
@@ -37,6 +39,7 @@ EXPRESSAO: NUM {$$ = $1;}
 %%
 
 void yyerror (char *c) {
+	printf("INVALIDO\n");
 }
 
 int main (){
