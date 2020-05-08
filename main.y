@@ -25,13 +25,13 @@ LINHA: EOL
 
 LINHA: EXPRESSAO EOL {printf("Resultado: %d\n", $1);}
 
-EXPRESSAO: NUM {$$ = $1;} ;
-EXPRESSAO: EXPRESSAO ADICAO EXPRESSAO {$$ = $1 + $3; printf ("%d + %d\n", $1, $3);};
-EXPRESSAO: EXPRESSAO MENOS EXPRESSAO {$$ = $1 - $3; printf("%d -%d\n", $1, $3);};
-EXPRESSAO: EXPRESSAO VEZES EXPRESSAO {$$ = $1 * $3; printf("%d*%d\n", $1, $3); };
-EXPRESSA0: EXPRESSAO DIVISAO EXPRESSAO {$$ = $1 / $3; printf("%d/%d\n", $1, $3); };
-EXPRESSAO: EXPRESSAO POTENCIA EXPRESSAO {$$ = pow($1,$3); printf("%d ^ %d\n", $1, $3); };
-EXPRESSAO: EPAREN EXPRESSAO DPAREN {$$ = $2; };
+EXPRESSAO: NUM {$$ = $1;}
+		 |EXPRESSAO ADICAO EXPRESSAO {$$ = $1 + $3; printf ("%d + %d\n", $1, $3);}
+  		 |EXPRESSAO MENOS EXPRESSAO {$$ = $1 - $3; printf("%d -%d\n", $1, $3);}
+		 |EXPRESSAO VEZES EXPRESSAO {$$ = $1 * $3; printf("%d*%d\n", $1, $3); }
+		 |EXPRESSAO DIVISAO EXPRESSAO {$$ = $1 / $3; printf("%d/%d\n", $1, $3); }
+		 |EXPRESSAO POTENCIA EXPRESSAO {$$ = pow($1,$3); printf("%d ^ %d\n", $1, $3); }
+		 |EPAREN EXPRESSAO DPAREN {$$ = $2; };
 
 
 %%
