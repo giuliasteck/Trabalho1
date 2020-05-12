@@ -11,12 +11,9 @@ NUMERO {DIGITO}+
 
 %%
 
-{NUMERO} {yylval = atoi(yytext);
+[-]?{NUMERO} {yylval = atoi(yytext);
 		return NUM;
 	   }
-[-]{1,1}{NUMERO} {yylval = atoi(yytext);
-				 return NEG;
-				 }
 
 [+] return ADICAO;
 [-] return MENOS;
