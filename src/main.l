@@ -11,7 +11,7 @@ NUMERO {DIGITO}+
 
 %%
 
-[-]?{NUMERO} {yylval = atoi(yytext);
+{NUMERO} {yylval = atoi(yytext);
 		return NUM;
 	   }
 
