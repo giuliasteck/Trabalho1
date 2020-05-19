@@ -33,10 +33,15 @@ EXPRESSAO:
 	| EXPRESSAO MENOS EXPRESSAO {$$ = $1 - $3; printf("PUSH %d\nPUSH %d\nPOP B\nPOP A\nSUB A,B\n", $1, $3);}
 	| EXPRESSAO VEZES EXPRESSAO {$$ = $1 * $3; printf("PUSH %d\nPUSH %d\nPOP B\nPOP A\nMUL B\n", $1, $3); }
 	| EXPRESSAO DIVISAO EXPRESSAO {$$ = $1 / $3; printf("PUSH %d\nPUSH %d\nPOP B\nPOP A\nDIV B\n", $1, $3); }
-	| EXPRESSAO POTENCIA EXPRESSAO {int i = 1;
-				while (i < $3){
-				$$ = $$*$1;
-				i++;
+	| EXPRESSAO POTENCIA EXPRESSAO {
+				if ($3 == 0)
+					$$ = 1;
+				else{
+					int i = 1;
+					while (i < $3){
+					$$ = $$*$1;
+					i++;
+					}
 				};
 				printf("MOV C, 1\nMOV A, %d\nMOV B, %d\nMOV D, %d\nPOTENCIA:\n	MUL B\n	INC C\n	CMP C,D\n	JNZ POTENCIA\n", $1, $1,$3); }
 	| EPAREN EXPRESSAO DPAREN {$$ = $2; }
