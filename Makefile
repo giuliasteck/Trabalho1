@@ -1,6 +1,6 @@
 COMPILER = gcc
 CFLAGS = -Wextra -ll
-DIR = sr
+DIR = src
 YACC = bison
 LEX = flex
 FILE = $(DIR)/main.c
