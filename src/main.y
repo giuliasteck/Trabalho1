@@ -9,11 +9,16 @@ int i = 0;
 int f = 0;
 %}
 
+/*Chamada dos elementos definidos em main.l*/
 %token NUM
 %token ADICAO MENOS VEZES DIVISAO POTENCIA
 %token EPAREN DPAREN
 %token EOL
 
+/*Definição da precedência do programa. As linhas que vem primeiro
+tem menor prioridade na realização da ordem das contas do que as que vem
+em baixo. Sendo assim, os parentêses tem prioridade máxima, logo em seguida
+a potência, e assim por diante.*/
 %left ADICAO MENOS
 %left VEZES DIVISAO
 %right POTENCIA
