@@ -34,3 +34,4 @@ NUMERO {DIGITO}+
 int yywrap () {
 	return 1;
 }
+

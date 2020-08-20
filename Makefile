@@ -38,8 +38,6 @@ test:all
 clean:
 	$(RM) $(HTAB)
 	$(RM) $(CTAB)
-	$(RM) $(LEXPROGRAM)
-	$(RM) $(YACCPROGRAM)
 	$(RM) ./$(TARGET)
 	$(RM) $(DIR)/*.o
 

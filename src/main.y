@@ -25,12 +25,15 @@ a potência, e assim por diante.*/
 %right EPAREN DPAREN
 
 %%
+
 /*CHAMADA PARA PODER ESCREVER VARIAS EXPRESSÕES NA CALCULADORA, SEM QUE O PROFRAMA FECHE*/
 INPUT: ;
 INPUT: INPUT LINHA;
 /*Escreve o valor final e termina o programa, com o resultado final no registrador 1*/
 
-LINHA: EXPRESSAO EOL {printf(" ; O resultado final é pra ser: %d\n", $1);};
+LINHA: EXPRESSAO EOL {printf("POP A\n; O resultado final é pra ser: %d\n", $1);};
+
+
 
 /*A "expressão é usada em forma de recursão, de forma que todas as operações estão contidas nessa expressão*/
 
@@ -40,10 +43,10 @@ EXPRESSAO:
 	/*Caso $2 seja "+" o programa lerá uma soma, subindo na pilha o resultado da soma dos dois valores. No Assembly, os valores em questão são repassados para os registradores e é executada a soma
 OBS: as operações soma, subtração, multiplicação e divisão são de fácil aplicação, pois as operações ja estão implementadas no assembly em questão, dessa forma é necessário apenas chamá-las*/
 
-	| EXPRESSAO ADICAO EXPRESSAO {$$ = $1 + $3; printf("MOV A, %d\nMOV B, %d\nADD A,B\n", $1,$3);}
-	| EXPRESSAO MENOS EXPRESSAO {$$ = $1 - $3; printf("MOV A, %d\nMOV B, %d\nSUB A,B\n", $1, $3);}
-	| EXPRESSAO VEZES EXPRESSAO {$$ = $1 * $3; printf("MOV A, %d\nMOV B, %d\nMUL B\n", $1, $3); }
-	| EXPRESSAO DIVISAO EXPRESSAO {$$ = $1 / $3; printf("MOV A, %d\nMOV B, %d\nDIV B\n", $1, $3); }
+	| EXPRESSAO ADICAO EXPRESSAO {$$ = $1 + $3; printf("MOV B, %d\nPOP A\nADD A,B\nPUSH A\n", $1);}
+	| EXPRESSAO MENOS EXPRESSAO {$$ = $1 - $3; printf("MOV B, %d\nPOP A\nSUB A,B\nPUSH A", $1);}
+	| EXPRESSAO VEZES EXPRESSAO {$$ = $1 * $3; printf("MOV B, %d\nPOP A\nMUL B\nPUSH A\n", $1); }
+	| EXPRESSAO DIVISAO EXPRESSAO {$$ = $1 / $3; printf("MOV B, %d\nPOP A\nDIV B\nPUSH A\n", $1); }
 	/*A exponenciação é implementada a partir de um elemento if, de forma que a estrutura de decisão irá comparar o valor da potencia com uma variável criada. A variavel é incrementada a cada retorno. No assembly será criada uma subrotina para cada potência, denominada "POTENCIA n", com n sendo o úmero relativo a quantidade de subrotinas já criadas.
 OBS: para um valor cujo expoente é zero, foi criado um laço para que o valor que sobe na pilha seja 1.*/ 
 
@@ -52,7 +55,7 @@ OBS: para um valor cujo expoente é zero, foi criado um laço para que o valor q
 	$$=1; 
 	printf("MOV A,1\n");
 	}
-	else if ($3 ==1){
+	else if ($3 == 1){
 	$$ = $1;
 		printf("MOV A,%d\n", $1);}
 	else {
@@ -66,6 +69,8 @@ OBS: para um valor cujo expoente é zero, foi criado um laço para que o valor q
 	/*por fim, os parenteses estão dispostos de forma que apenas o valor do seu interior suba na pilha. No assemply, não há necessidade de qualquer codigo. O parenteses tem prioridade, sendo necessário resolver primeiro o que está no interior do parenteses, para depois resolver as outras operações.*/	
 	| EPAREN EXPRESSAO DPAREN {$$ = $2; }
 
+
+
 %%
 
 /*Chamada da função*/
@@ -73,6 +78,7 @@ void yyerror (char *c) {
 }
 
 int main (){
+	printf("PUSH A\n");
 	yyparse();
 	return 0;
 }
