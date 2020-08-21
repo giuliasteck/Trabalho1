@@ -1,9 +1,7 @@
 /*Inicio do programa para identificação de simbolos*/
-
 %{
 #include <stdlib.h>
 void yyerror (char *);
-
 #include "y.tab.h"
 
 %}
@@ -13,12 +11,14 @@ NUMERO {DIGITO}+
 
 %%
 
+
+
 {NUMERO} {yylval = atoi(yytext);
 		return NUM;
 	   }
 
 
-
+^[DIGITO] return INICIO;
 [+] return ADICAO;
 [-] return MENOS;
 [*] return VEZES;
