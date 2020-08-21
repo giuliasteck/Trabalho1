@@ -1,3 +1,10 @@
+/*Trabalho 1 
+Victor Hugo Picerni RA187930
+Giulia Steck RA173458*/
+
+/*Obs:
+Professor, restringi os comentários a poucos, pois estou sem tempo kkk, mas muito obrigado pela oportunidade de refazer o codigo...*/
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,7 +14,7 @@ int yylex(void);
 int i = 0;
 int f = 0;
 %}
-
+/*definindo tokens e precedencia*/
 %token NUM VEZES DIVISAO POTENCIA EPAREN DPAREN EOL INICIO
 %token MENOS
 %token ADICAO
@@ -19,15 +26,15 @@ int f = 0;
 
 %%
 
-INPUT: INPUT NUM {printf("potencia:\nMUL C\nDEC B\nJNZ potencia\nRET\n");}
-	|{}
+/*Inicio do programa*/
+INPUT:{}
 	|INPUT LINHA{printf("TESTE final\n");};
 
 
-LINHA: EXPRESSAO EOL {printf(" ; O resultado final é pra ser: %d\n", $1);};
+LINHA: EXPRESSAO EOL {printf("FIM DO PROGRAMA");};
 
 
-
+/*O ALGORITMO UTILIZA A PILHA EM ASSEMBLY PARA SER IMPLEMENTADO, DE FORMA A EXPLORAR O ALGORITMO SHIFT REDUCE*/
 EXPRESSAO: 	 EPAREN EXPRESSAO DPAREN {$$ = $2; }
 
 	| NUM {$$ = $1;printf("PUSH %d\n",$1);} 
